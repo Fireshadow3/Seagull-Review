@@ -28,6 +28,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
          <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="WebsiteThemes/CUSTOM.css">
 
         <title></title>
     </head>
@@ -43,7 +45,7 @@
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">Hidden brand</a>
+            <a class="navbar-brand" href="#">Logo</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
