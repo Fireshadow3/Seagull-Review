@@ -1,0 +1,41 @@
+﻿Progetto: Seagull Review
+Codice Progetto: 0
+Data: 11/02/2019
+Cliente: Mercato
+
+1. OBIETTIVI
+Realizzare una piattaforma di recensioni per film, serie televisive, libri 
+e musica, il quale permetta la ricerca e il salvataggio di contenuti 
+ritenuti interessanti da eventuali utenti registrati.
+
+2. PRINCIPALI DELIVERABLE
+Project Management: pianificazione
+Progettazione: analisi e specifiche
+Progettazione: interfaccia utente
+Esecuzione: programma applicativo
+
+3. MILESTONE
+Progetto software 
+Programma applicativo
+
+4. TEMPISTICA PRELIMINARE
+
+5. STRUTTURA ORGANIZZATIVA
+Il Project Manager sarà Lorenzo Trimboli
+Il vice Project Management sarà Gabriele Signorini
+Il team di progetto sarà composto da altre 3 persone: 
+Alessandro Formichella, Gaia Mirabelli e Filippo Campo
+
+
+progettazione:gabri,pippo,gaia
+popolare db: gaia,filippo,gabri
+creazione db:lorenzo,pippo,gaia
+organizzazione interfaccia web: gabri,formi
+creazione interfaccia grafica:formi,gabri,lorenzo
+debug:lorenzo,formi
+
+//TODO
+
+tutto in un file unico con workpackage e tutto +modifica gantt,aggiungi roba su wba
+
++raci +controllo rischi 
