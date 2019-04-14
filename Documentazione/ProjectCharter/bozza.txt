@@ -34,8 +34,3 @@ organizzazione interfaccia web: gabri,formi
 creazione interfaccia grafica:formi,gabri,lorenzo
 debug:lorenzo,formi
 
-//TODO
-
-tutto in un file unico con workpackage e tutto +modifica gantt,aggiungi roba su wba
-
-+raci +controllo rischi 
