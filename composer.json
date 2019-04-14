@@ -1,0 +1,11 @@
+{
+    "name": "vendor/seagull-website",
+    "description": "Description of project SeagullWebsite.",
+    "authors": [
+        {
+            "name": "alessandro",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {}
+}
