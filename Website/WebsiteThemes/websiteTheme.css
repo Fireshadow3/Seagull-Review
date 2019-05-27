@@ -1,0 +1,21 @@
+.bg-div {
+	background-color: #aabfe2;
+}
+
+.bg-btn {
+	background-color: #e59840;
+	color: #343a40;
+	border-color: #343a40;
+}
+
+.search-options-container {
+    padding-top: 10px;
+}
+
+.main-container-padding {
+    padding-top: 1.4%;
+}
+
+.card-deck-padding {
+	padding-top: 1.0%;
+}
