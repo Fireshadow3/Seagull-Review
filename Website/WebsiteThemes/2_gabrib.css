@@ -7,3 +7,15 @@
 	color: #343a40;
 	border-color: #343a40;
 }
+
+.search-options-container {
+    padding-top: 10px;
+}
+
+.main-container-padding {
+    padding-top: 1.4%;
+}
+
+.card-deck-padding {
+	padding-top: 1.0%;
+}
