@@ -1,3 +1,7 @@
+<?php
+    require './PHP_CLASSES/CardClass.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,8 +14,18 @@
         <link rel="stylesheet" type="text/css" href="WebsiteThemes/websiteTheme.css">
 
         <title>Seagull review</title>
+    
+    <?php
+        //Connessione al database
+        $isConnected;
+        $db = new mysqli ('localhost', 'root', '', 'seagulldb');
+        if($db->connect_error){
+            $isConnected = false;
+        }
+    ?>
     </head>
-    <body class="bg-dark">
+    
+    <body class="bg-body">
         
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-div">
@@ -20,7 +34,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand" href="#">
-                    <img src="/img/logotrue.svg" class="img-fluid rounde" alt="Icon">
+                    <img src="/img/logobetter.svg" class="img-fluid" alt="Icon">
                 </a>
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
@@ -45,21 +59,37 @@
                 <button class="btn btn-outline-success my-2 my-sm-0 mt-1 mb-1 bg-btn" type="submit">Search</button>
             </form>
         </div>
-        <!-- Container for search bar -->
+        <!-- End of container for search bar -->
         
         <?php
             //Check if search variable is set
         if(isset($_GET["search"])){
+            //If search variable is set get query results and show them
+            if($isConnected){
+                $query = "SELECT * FROM artisti as a WHERE a.nome=". $_GET["search"];
+                $ret = $db->query($query);
+                
+            } else {
+                echo "<p>error</p>";
+            }
+        ?>
+        
+        <!-- Filled search bar and found tv series -->
+        
+        <?php } 
+            //If search variable is NOT set get latest tv series query results and show them
+            else {
+                
+                //GET LATEST TV SERIES
+                $i = 0;
+                while($i<5){
+                    $card = new Card;
+                    echo "";
+                }
         ?>
         
         <!-- Empty search bar and latest tv series -->
         
-        <?php } 
-            //If search variable is set get query results and show them
-            else {
-        ?>
-        
-        <!-- Filled search bar and found tv series -->
         
         <?php } ?>
         
