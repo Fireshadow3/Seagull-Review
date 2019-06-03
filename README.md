@@ -8,11 +8,11 @@ Directories overview:
 
 -Website: website root
 
-    PHP_CLASSES: various php classes
+    -PHP_CLASSES: various php classes
     
-    WebPages: actual web pages for the website
+    -WebPages: actual web pages for the website
     
-    WebsiteThemes: css files
+    -WebsiteThemes: css files
     
-    img: images used by the website, e.g. icon
+    -img: images used by the website, e.g. icon
     
