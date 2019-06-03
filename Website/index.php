@@ -9,7 +9,7 @@
             //echo "Errore: " . $e->getMessage();
             if(isset($db))
                 $db->closeConnection();
-            header('Location: '.'./PagineSito/error.php?errore=database');
+            header('Location: '.'./WebPages/error.php?errore=database');
             //die();
         }
 ?>
