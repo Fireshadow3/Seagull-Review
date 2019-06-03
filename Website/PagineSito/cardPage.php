@@ -8,6 +8,9 @@
 -Durata media degli episodi
 -Cast
 -Regista
+
+
+NEI COMMENTI CI SARA ANCHE UNA FORM PER AGGIUNGERE UN COMMENTO
 -->
 <html lang="en">
     

@@ -18,10 +18,21 @@
     <?php
         //Connessione al database
         $isConnected;
-        $db = new mysqli ('localhost', 'root', '', 'seagulldb');
-        if($db->connect_error){
-            $isConnected = false;
-        }
+        try {
+            $hostname = "localhost";
+            $dbname = "seagulldb";
+            $user = "root";
+            $pass = "";
+            $db = new PDO ("mysql:host=$hostname;dbname=$dbname", $user, $pass);
+            //HOW TO USE PERSISTENT PDO PHP
+            $db = new PDO("mysql:host=$hostname;dbname=$dbname", $user, $pass, array(
+                                                                PDO::ATTR_PERSISTENT => true
+                                                                ));
+        } catch (PDOException $e) {
+            echo "Errore: " . $e->getMessage();
+            $db = null;
+            die();
+}
     ?>
     </head>
     
