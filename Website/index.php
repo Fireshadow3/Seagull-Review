@@ -1,5 +1,17 @@
 <?php
-    require './PHP_CLASSES/CardClass.php';
+    require_once './PHP_CLASSES/DatabaseInterfaceRetrieveData.php';
+    
+    //Check if database is connected, otherwise redirect to error page (must be done before DOCTYPE)
+    try {
+    $db = new DatabaseInterface();
+    }
+    catch (PDOException $e) {
+            //echo "Errore: " . $e->getMessage();
+            if(isset($db))
+                $db->closeConnection();
+            header('Location: '.'./PagineSito/error.php?errore=database');
+            //die();
+        }
 ?>
 
 <!DOCTYPE html>
@@ -14,26 +26,6 @@
         <link rel="stylesheet" type="text/css" href="WebsiteThemes/websiteTheme.css">
 
         <title>Seagull review</title>
-    
-    <?php
-        //Connessione al database
-        $isConnected;
-        try {
-            $hostname = "localhost";
-            $dbname = "seagulldb";
-            $user = "root";
-            $pass = "";
-            $db = new PDO ("mysql:host=$hostname;dbname=$dbname", $user, $pass);
-            //HOW TO USE PERSISTENT PDO PHP
-            $db = new PDO("mysql:host=$hostname;dbname=$dbname", $user, $pass, array(
-                                                                PDO::ATTR_PERSISTENT => true
-                                                                ));
-        } catch (PDOException $e) {
-            echo "Errore: " . $e->getMessage();
-            $db = null;
-            die();
-}
-    ?>
     </head>
     
     <body class="bg-body">
@@ -72,19 +64,18 @@
         </div>
         <!-- End of container for search bar -->
         
+        
+        <!-- Filled search bar and found tv series -->
         <?php
             //Check if search variable is set
         if(isset($_GET["search"])){
             //If search variable is set get query results and show them
-            if($isConnected){
-                $query = "SELECT * FROM artisti as a WHERE a.nome=". $_GET["search"];
-                $ret = $db->query($query);
-                
-            }
+            $TV_serie_name = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING); //Data filtering before everything!
+            $tvseries = $db->searchTVSeriesByName($TV_serie_name);
         ?>
         
-        <!-- Filled search bar and found tv series -->
         
+        <!-- Empty search bar and latest tv series -->
         <?php } 
             //If search variable is NOT set get latest tv series query results and show them
             else {
@@ -96,8 +87,6 @@
                     echo "";
                 }
         ?>
-        
-        <!-- Empty search bar and latest tv series -->
         
         
         <?php } ?>
