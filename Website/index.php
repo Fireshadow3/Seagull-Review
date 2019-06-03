@@ -69,8 +69,6 @@
                 $query = "SELECT * FROM artisti as a WHERE a.nome=". $_GET["search"];
                 $ret = $db->query($query);
                 
-            } else {
-                echo "<p>error</p>";
             }
         ?>
         

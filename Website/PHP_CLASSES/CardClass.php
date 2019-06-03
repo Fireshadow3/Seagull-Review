@@ -4,8 +4,12 @@ class Foo {
     public $img;
     public $description;
    
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
+    }
    
-    function aMemberFunc() {
+    public function aMemberFunc() {
         print 'Inside `aMemberFunc()`';
     }
 }
