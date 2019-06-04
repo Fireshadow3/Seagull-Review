@@ -16,9 +16,7 @@ class DatabaseInterface {
         $dbname = "seagulldb";
         $user = "root";
         $pass = "";
-        $db = new PDO("mysql:host=$hostname;dbname=$dbname", $user, $pass, array(
-                                                            PDO::ATTR_PERSISTENT => true
-                                                            ));
+        $this->db = new PDO("mysql:host=$hostname;dbname=$dbname", $user, $pass);
     }
     
     //Destructor

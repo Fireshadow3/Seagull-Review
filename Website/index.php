@@ -7,9 +7,10 @@
     }
     catch (PDOException $e) {
             //echo "Errore: " . $e->getMessage();
-            if(isset($db))
+            if (isset($db)) {
                 $db->closeConnection();
-            header('Location: '.'./WebPages/error.php?errore=database');
+            }
+    //header('Location: '.'./WebPages/error.php?errore=database');
             //die();
         }
 ?>
@@ -81,11 +82,9 @@
             else {
                 
                 //GET LATEST TV SERIES
-                $i = 0;
-                while($i<5){
-                    $card = new Card;
-                    echo "";
-                }
+                $i = 0;                
+                //$card = new TVSerieClass($id, $title, $img, $release_date, $description, $number_of_seasons, $average_episode_time);
+                echo "";
         ?>
         
         
