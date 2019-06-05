@@ -13,10 +13,10 @@ class DatabaseInterface {
     //Constructor
     public function __construct() {
         $hostname = "localhost";
-        $dbname = "seagulldb";
-        $user = "root";
-        $pass = "";
-        $this->db = mysqli_connect($hostname,$user,$pass,$dbname);
+        $dbname = "Seagulldb";
+        $user = "alessandro";
+        $pass = "asterisco****";
+        self::$db = mysqli_connect($hostname,$user,$pass,$dbname);
         // Check connection
         if (mysqli_connect_errno()){
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -32,21 +32,55 @@ class DatabaseInterface {
     
     
     //Retrieve all data about TV serie given serie ID
+    public function getTVSerieInformation($id){
+        $query = "SELECT * FROM Elemento WHERE idElemento = ".$id." ;";
+        $result = self::$db->query($query) or die(self::$db->error);
+        $row = $result->fetch_assoc();
+        $element_card = new TVSerieClass($row["idElemento"], $row["titolo"], $row["immagine"], $row["anno_pubblicazione"], $row["descrizione"], $row["FK_tipo"], $row["durata_media"]);
+        return $element_card;
+    }
     
     //Search all TV series given a search string
     public function searchTVSeriesByName($UppercaseName){
         //Convert title to lowercase
         $name = strtolower($UppercaseName);
         //Search for tv series with that title ( https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php )
-        $query = "SELECT * FROM Elemento WHERE titolo LIKE '%?%'";
-        $stmt = $this->db->prepare($query);
+        //$query = "SELECT * FROM Elemento WHERE titolo LIKE '%?%' AND ? = ?";
+        $query = "SELECT * FROM Elemento, Serietv WHERE titolo LIKE '%".$name."%' AND idElemento = idSerietv;";
+        //$stmt = $this->db->prepare($query);
+        //$stmt = self::$db->prepare($query);
+        //$momma = '';
+        //$stmt->bind_param("sss", $name, $momma, $momma);
+        //$stmt->execute();
+        //$result = $stmt->get_result();
+        //I create an array of tv series
+        $result = self::$db->query($query) or die(self::$db->error);
+        $tvseries = array();
+        //$tvseries = array();
+        //while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
+            $element_card = new TVSerieClass($row["idElemento"], $row["titolo"], $row["immagine"], $row["anno_pubblicazione"], $row["descrizione"], $row["FK_tipo"], $row["durata_media"]);
+            //I add the new element to the array
+            $tvseries[] = $element_card;
+        }
+        return $tvseries;
+    }
+    
+    //Get latest released tv series (latest 10 id's)
+    public function getLatestTVSeries($UppercaseName){
+    //Convert title to lowercase
+        $name = strtolower($UppercaseName);
+        //Search for tv series with that title ( https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php )
+        $query = "SELECT * FROM Elemento ORDER BY idElemento LIMIT 8";
+        //$stmt = $this->db->prepare($query);
+        $stmt = self::$db->prepare($query);
         $stmt->bind_param('s', $name);
         $stmt->execute();
         $result = $stmt->get_result();
         //I create an array of tv series
         $tvseries = array();
         while ($row = $result->fetch_assoc()) {
-            $element = new CardClass($row['id'], $row['title'], $row['img'], $row['release_date'], $row['description'], $row[$number_of_seasons], $row[$average_episode_time]);
+            $element = new TVSerieClass($row['id'], $row['title'], $row['img'], $row['release_date'], $row['description'], $row[$number_of_seasons], $row[$average_episode_time]);
             //I add the new element to the array
             $tvseries[] = $element;
         }

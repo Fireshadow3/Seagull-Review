@@ -48,6 +48,25 @@ class TVSerieClass {
     function getAverage_episode_time() {
         return $this->average_episode_time;
     }
+    
+    /**
+     * Writes the element in bootstrap card style
+     */
+    function writeBootstrapCard(){
+        echo "<div class=\"card\">";
+        echo "<img src=\"getImage.php?id=";
+        echo $this->id;
+        echo "\" class=\"card-img-top\" />";
+        //echo "<img  src="..." alt="Card image cap">"
+        echo "<div class=\"card-body\">";
+        echo "<h5 class=\"card-title\">";
+        echo $this->title."</h5>";
+        echo "<p class=\"card-text\">";
+        echo $this->description;
+        echo "</p>";
+        echo "</div>";
+        echo "</div>";
+    }
 
 }
 

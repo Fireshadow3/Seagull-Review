@@ -4,6 +4,7 @@
     //Check if database is connected, otherwise redirect to error page (must be done before DOCTYPE)
     $db = new DatabaseInterface();
     //echo "Errore: " . $e->getMessage();
+    header ('Content-type: text/html; charset=ISO-8859-1');
     //header('Location: '.'./WebPages/error.php?errore=database');
     //die();
 ?>
@@ -11,8 +12,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <!-- Required meta tags -->
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -59,17 +60,23 @@
         <!-- End of container for search bar -->
         
         
+        <!-- Container for bottom objects -->
+        <div class="container-fluid pt-3" mt-10>
+            <div class="row">
+        
+        <!-- Container for media objects -->
+        <div class="col bg-light justify-content-md-center">
+                <div class="card-deck card-deck-padding">
+        
         <!-- Filled search bar and found tv series -->
         <?php
             //Check if search variable is set
-        if(isset($_GET["search"])){
+        if(isset($_GET["search"]) || $_GET["search"]=''){
             //If search variable is set get query results and show them
             $TV_serie_name = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING); //Data filtering before everything!
             $tvseries = $db->searchTVSeriesByName($TV_serie_name);
-            foreach ($tvseries as &$element) {
-                echo "<p>$element->getTitle</p>";
-                echo "<p>$tvseries->getTitle</p>";
-                echo "<p>Big momma</p>";
+            foreach ($tvseries as $element) {
+                $element->writeBootstrapCard();
             }
         ?>
         
@@ -80,11 +87,17 @@
             else {
                 
                 //GET LATEST TV SERIES
-                $i = 0;                
-                //$card = new TVSerieClass($id, $title, $img, $release_date, $description, $number_of_seasons, $average_episode_time);
-                echo "";
+                $tvseries = $db->getLatestTVSeries();
+                foreach ($tvseries as &$element) {
+                    echo "big momma";
+                    $element->writeBootstrapCard();
+                }
         ?>
         
+            </div>
+        </div>
+        </div>
+        </div>
         
         <?php } ?>
         
