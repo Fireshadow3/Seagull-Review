@@ -16,13 +16,18 @@ class DatabaseInterface {
         $dbname = "seagulldb";
         $user = "root";
         $pass = "";
-        $this->db = new PDO("mysql:host=$hostname;dbname=$dbname", $user, $pass);
+        $this->db = mysqli_connect($hostname,$user,$pass,$dbname);
+        // Check connection
+        if (mysqli_connect_errno()){
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
     }
     
     //Destructor
     public function closeConnection() {
-        if(isset($this->db))
+        if (isset($this->db)) {
             $this->db = NULL;
+        }
     }
     
     
@@ -32,15 +37,16 @@ class DatabaseInterface {
     public function searchTVSeriesByName($UppercaseName){
         //Convert title to lowercase
         $name = strtolower($UppercaseName);
-        //Search for tv series with that title (omg https://phptherightway.com/#pdo_extension )
-        $query = "SELECT * FROM Elemento WHERE titolo LIKE '%:name%'";
-        $result = $this->db->prepare($query);
-        $result->bindParam(':name', $name, PDO::PARAM_STR);
-        $result->execute();
+        //Search for tv series with that title ( https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php )
+        $query = "SELECT * FROM Elemento WHERE titolo LIKE '%?%'";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
         //I create an array of tv series
         $tvseries = array();
-        foreach ($result as $row) {
-            $element = new CardClass($row[id], $row[$title], $row[$img], $row[$release_date], $row[$description], $row[$number_of_seasons], $row[$average_episode_time]);
+        while ($row = $result->fetch_assoc()) {
+            $element = new CardClass($row['id'], $row['title'], $row['img'], $row['release_date'], $row['description'], $row[$number_of_seasons], $row[$average_episode_time]);
             //I add the new element to the array
             $tvseries[] = $element;
         }

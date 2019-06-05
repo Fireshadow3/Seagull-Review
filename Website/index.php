@@ -2,17 +2,10 @@
     require_once './PHP_CLASSES/DatabaseInterfaceRetrieveData.php';
     
     //Check if database is connected, otherwise redirect to error page (must be done before DOCTYPE)
-    try {
     $db = new DatabaseInterface();
-    }
-    catch (PDOException $e) {
-            //echo "Errore: " . $e->getMessage();
-            if (isset($db)) {
-                $db->closeConnection();
-            }
+    //echo "Errore: " . $e->getMessage();
     //header('Location: '.'./WebPages/error.php?errore=database');
-            //die();
-        }
+    //die();
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +66,11 @@
             //If search variable is set get query results and show them
             $TV_serie_name = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING); //Data filtering before everything!
             $tvseries = $db->searchTVSeriesByName($TV_serie_name);
+            foreach ($tvseries as &$element) {
+                echo "<p>$element->getTitle</p>";
+                echo "<p>$tvseries->getTitle</p>";
+                echo "<p>Big momma</p>";
+            }
         ?>
         
         
