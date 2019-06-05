@@ -89,7 +89,6 @@
                 //GET LATEST TV SERIES
                 $tvseries = $db->getLatestTVSeries();
                 foreach ($tvseries as &$element) {
-                    echo "big momma";
                     $element->writeBootstrapCard();
                 }
         ?>

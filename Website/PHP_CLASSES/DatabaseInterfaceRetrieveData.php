@@ -67,24 +67,17 @@ class DatabaseInterface {
     }
     
     //Get latest released tv series (latest 10 id's)
-    public function getLatestTVSeries($UppercaseName){
-    //Convert title to lowercase
-        $name = strtolower($UppercaseName);
-        //Search for tv series with that title ( https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php )
+    public function getLatestTVSeries(){
         $query = "SELECT * FROM Elemento ORDER BY idElemento LIMIT 8";
-        //$stmt = $this->db->prepare($query);
-        $stmt = self::$db->prepare($query);
-        $stmt->bind_param('s', $name);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        //I create an array of tv series
+        $result = self::$db->query($query) or die(self::$db->error);
         $tvseries = array();
         while ($row = $result->fetch_assoc()) {
-            $element = new TVSerieClass($row['id'], $row['title'], $row['img'], $row['release_date'], $row['description'], $row[$number_of_seasons], $row[$average_episode_time]);
+            $element_card = new TVSerieClass($row["idElemento"], $row["titolo"], $row["immagine"], $row["anno_pubblicazione"], $row["descrizione"], $row["FK_tipo"], $row["durata_media"]);
             //I add the new element to the array
-            $tvseries[] = $element;
+            $tvseries[] = $element_card;
         }
         return $tvseries;
+        
     }
     
     //Get reviews given a tv serie ID
